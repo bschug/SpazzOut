@@ -1,17 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CharacterCtr : MonoBehaviour {
 
     public Rigidbody head;
-    public float desiredHeightOfHead;
-    public float force;
+    public float desiredHeightOfHead = 0.4f;
+    public float force = 200;
 
-    public Rigidbody rightUpperLeg;
+    public List<Rigidbody> limbs = new List<Rigidbody> ();
+    public float limbSensitivity = 45;
 
-    public Rigidbody rightLowerLeg;
-    public Rigidbody leftUpperLeg;
-    public Rigidbody leftLowerLeg;
+    Vector3 lastMousePos;
 
     void KeepHeadFloating ()
     {
@@ -23,7 +23,35 @@ public class CharacterCtr : MonoBehaviour {
         }
     }
 
-	void Update () {
+    void ReadInputs ()
+    {
+        var mouseDelta = lastMousePos - Input.mousePosition;
+        lastMousePos = Input.mousePosition;
+
+        var limbUpKeys = new List<KeyCode> { KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.R };
+        var limbDownKeys = new List<KeyCode> { KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.F };
+
+        for (int i=0; i < limbUpKeys.Count; i++)
+        {
+            if (Input.GetKey (limbUpKeys[i]))
+            {
+                limbs[i].AddRelativeTorque (new Vector3 (limbSensitivity, 0, 0));
+            }
+            if (Input.GetKey (limbDownKeys[i]))
+            {
+                limbs[i].AddRelativeTorque (new Vector3 (-limbSensitivity, 0, 0));
+            }
+        }
+    }
+
+    void Start ()
+    {
+        lastMousePos = Input.mousePosition;
+    }
+
+    void Update ()
+    {
+        ReadInputs ();
         KeepHeadFloating ();
 	}
 }

@@ -12,8 +12,8 @@ FBXHeaderExtension:  {
 		Month: 01
 		Day: 24
 		Hour: 00
-		Minute: 24
-		Second: 35
+		Minute: 51
+		Second: 31
 		Millisecond: 0
 	}
 	Creator: "FBX SDK/FBX Plugins build 20070228"
@@ -21,7 +21,7 @@ FBXHeaderExtension:  {
 		FlagPLE: 0
 	}
 }
-CreationTime: "2015-01-24 00:24:35:000"
+CreationTime: "2015-01-24 00:51:31:000"
 Creator: "Blender version 2.69 (sub 0)"
 
 ; Object definitions
@@ -57,7 +57,7 @@ Definitions:  {
 ;------------------------------------------------------------------
 
 Objects:  {
-	Model: "Model::Sphere", "Mesh" {
+	Model: "Model::Cube", "Mesh" {
 		Version: 232
 		Properties60:  {
 			Property: "QuaternionInterpolate", "bool", "",0
@@ -136,50 +136,38 @@ Objects:  {
 		MultiTake: 1
 		Shading: Y
 		Culling: "CullingOff"
-		Vertices: 0.000000,1.000000,-1.000000,0.000000,1.000000,1.000000,0.707107,0.707107,-1.000000,0.707107,0.707107,1.000000,
-		          1.000000,-0.000000,-1.000000,1.000000,-0.000000,1.000000,0.707107,-0.707107,-1.000000,0.707107,-0.707107,1.000000,
-		          -0.000000,-1.000000,-1.000000,-0.000000,-1.000000,1.000000,-0.707107,-0.707107,-1.000000,-0.707107,-0.707107,1.000000,
-		          -1.000000,0.000000,-1.000000,-1.000000,0.000000,1.000000,-0.707107,0.707107,-1.000000,-0.707107,0.707107,1.000000
-		PolygonVertexIndex: 0,1,3,-3,2,3,5,-5,4,5,7,-7,6,7,9,-9,8,9,11,-11,10,11,13,-13,3,1,15,13,11,9,7,-6,
-		                    14,15,1,-1,12,13,15,-15,0,2,4,6,8,10,12,-15
+		Vertices: 1.000000,1.000000,-1.000000,1.000000,-1.000000,-1.000000,-1.000000,-1.000000,-1.000000,-1.000000,1.000000,-1.000000,
+		          1.000000,0.999999,1.000000,0.999999,-1.000001,1.000000,-1.000000,-1.000000,1.000000,-1.000000,1.000000,1.000000
+		PolygonVertexIndex: 0,1,2,-4,4,7,6,-6,0,4,5,-2,1,5,6,-3,2,6,7,-4,4,0,3,-8
 		GeometryVersion: 124
 		LayerElementNormal: 0 {
 			Version: 101
 			Name: ""
 			MappingInformationType: "ByPolygonVertex"
 			ReferenceInformationType: "Direct"
-			Normals: 0.382683,0.923880,0.000000,0.382683,0.923880,0.000000,0.382683,0.923880,0.000000,0.382683,0.923880,0.000000,
-			         0.923880,0.382683,0.000000,0.923880,0.382683,0.000000,0.923880,0.382683,0.000000,0.923880,0.382683,0.000000,
-			         0.923880,-0.382683,0.000000,0.923880,-0.382683,0.000000,0.923880,-0.382683,0.000000,0.923880,-0.382683,0.000000,
-			         0.382683,-0.923880,0.000000,0.382683,-0.923880,0.000000,0.382683,-0.923880,0.000000,0.382683,-0.923880,0.000000,
-			         -0.382684,-0.923879,0.000000,-0.382684,-0.923879,0.000000,-0.382684,-0.923879,0.000000,-0.382684,-0.923879,0.000000,
-			         -0.923880,-0.382683,0.000000,-0.923880,-0.382683,0.000000,-0.923880,-0.382683,0.000000,-0.923880,-0.382683,0.000000,
+			Normals: 0.000000,0.000000,-1.000000,0.000000,0.000000,-1.000000,0.000000,0.000000,-1.000000,0.000000,0.000000,-1.000000,
 			         0.000000,0.000000,1.000000,0.000000,0.000000,1.000000,0.000000,0.000000,1.000000,0.000000,0.000000,1.000000,
-			         0.000000,0.000000,1.000000,0.000000,0.000000,1.000000,0.000000,0.000000,1.000000,0.000000,0.000000,1.000000,
-			         -0.382684,0.923879,0.000000,-0.382684,0.923879,0.000000,-0.382684,0.923879,0.000000,-0.382684,0.923879,0.000000,
-			         -0.923880,0.382683,0.000000,-0.923880,0.382683,0.000000,-0.923880,0.382683,0.000000,-0.923880,0.382683,0.000000,
-			         0.000000,0.000000,-1.000000,0.000000,0.000000,-1.000000,0.000000,0.000000,-1.000000,0.000000,0.000000,-1.000000,
-			         0.000000,0.000000,-1.000000,0.000000,0.000000,-1.000000,0.000000,0.000000,-1.000000,0.000000,0.000000,-1.000000
+			         1.000000,-0.000000,0.000000,1.000000,-0.000000,0.000000,1.000000,-0.000000,0.000000,1.000000,-0.000000,0.000000,
+			         -0.000000,-1.000000,-0.000000,-0.000000,-1.000000,-0.000000,-0.000000,-1.000000,-0.000000,-0.000000,-1.000000,-0.000000,
+			         -1.000000,0.000000,-0.000000,-1.000000,0.000000,-0.000000,-1.000000,0.000000,-0.000000,-1.000000,0.000000,-0.000000,
+			         0.000000,1.000000,0.000000,0.000000,1.000000,0.000000,0.000000,1.000000,0.000000,0.000000,1.000000,0.000000
 		}
 		LayerElementSmoothing: 0 {
 			Version: 102
 			Name: ""
 			MappingInformationType: "ByPolygon"
 			ReferenceInformationType: "Direct"
-			Smoothing: 0,0,0,0,0,0,0,0,0,0
+			Smoothing: 0,0,0,0,0,0
 		}
 		LayerElementUV: 0 {
 			Version: 101
 			Name: "UVMap"
 			MappingInformationType: "ByPolygonVertex"
 			ReferenceInformationType: "IndexToDirect"
-			UV: 0.031132,0.444677,0.615502,0.208241,0.606324,0.444677,0.037100,0.406823,0.670532,0.075389,0.992827,0.626516,
-			    0.037100,0.031061,0.937797,0.759368,0.031132,0.820439,0.462526,0.820439,0.468494,0.406824,0.174930,0.444677,
-			    0.936235,0.075389,0.324696,0.031061,0.612291,0.031061,0.617065,0.626516,0.180898,0.406823,0.462526,0.444677,
-			    0.803383,0.396122,0.672094,0.493664,0.937798,0.493664,0.936235,0.341093,0.612291,0.406823,0.468493,0.031061,
-			    0.804946,0.438635,0.606324,0.820439,0.672094,0.759368,0.670531,0.341093,0.318728,0.820439,0.324696,0.406824,
-			    0.804946,0.814397,0.318728,0.444677,0.803383,0.020360,0.991264,0.208241,0.174930,0.820439,0.180898,0.031061
-			UVIndex: 31,28,34,11,11,34,8,0,14,22,10,23,23,10,29,13,13,29,16,35,35,16,3,6,19,24,20,5,7,30,26,15,17,9,28,31,2,25,9,17,18,27,1,4,32,12,33,21
+			UV: 0.501628,0.257021,0.501628,0.739317,0.260480,0.498169,0.260480,0.015873,0.260480,0.257021,0.742776,0.498169,
+			    0.260480,0.257021,0.260480,0.257021,0.260480,0.739317,0.501628,0.015873,0.501628,0.257021,0.019332,0.498169,
+			    0.983924,0.498169,0.501628,0.498169,0.983924,0.257021,0.742776,0.257021,0.019332,0.257021
+			UVIndex: 6,3,9,0,2,13,1,8,7,2,11,16,14,12,5,15,15,5,13,10,2,4,10,13
 		}
 		LayerElementTexture: 0 {
 			Version: 101
@@ -221,12 +209,12 @@ Objects:  {
 			}
 		}
 	}
-	Material: "Material::None__CanTest_png", "" {
+	Material: "Material::Material__CubeUV_png", "" {
 		Version: 102
-		ShadingModel: "phong"
+		ShadingModel: "lambert"
 		MultiLayer: 0
 		Properties60:  {
-			Property: "ShadingModel", "KString", "", "Phong"
+			Property: "ShadingModel", "KString", "", "Lambert"
 			Property: "MultiLayer", "bool", "",0
 			Property: "EmissiveColor", "ColorRGB", "",0.8000,0.8000,0.8000
 			Property: "EmissiveFactor", "double", "",0.0000
@@ -251,14 +239,14 @@ Objects:  {
 			Property: "Reflectivity", "double", "",0
 		}
 	}
-	Video: "Video::CanTest_png", "Clip" {
+	Video: "Video::CubeUV_png", "Clip" {
 		Type: "Clip"
 		Properties60:  {
 			Property: "FrameRate", "double", "",0
 			Property: "LastFrame", "int", "",0
 			Property: "Width", "int", "",0
 			Property: "Height", "int", "",0
-			Property: "Path", "charptr", "", "CanTest.png"
+			Property: "Path", "charptr", "", "CubeUV.png"
 			Property: "StartFrame", "int", "",0
 			Property: "StopFrame", "int", "",0
 			Property: "PlaySpeed", "double", "",1
@@ -269,13 +257,13 @@ Objects:  {
 			Property: "AccessMode", "enum", "",0
 		}
 		UseMipMap: 0
-		Filename: "CanTest.png"
-		RelativeFilename: "C:\Users\Moritz\Documents\GitHub\SpazzOut\Assets\Texture\CanTest.png"
+		Filename: "CubeUV.png"
+		RelativeFilename: "C:\Users\Moritz\Documents\GitHub\SpazzOut\Assets\Texture\CubeUV.png"
 	}
-	Texture: "Texture::CanTest_png", "TextureVideoClip" {
+	Texture: "Texture::CubeUV_png", "TextureVideoClip" {
 		Type: "TextureVideoClip"
 		Version: 202
-		TextureName: "Texture::CanTest_png"
+		TextureName: "Texture::CubeUV_png"
 		Properties60:  {
 			Property: "Translation", "Vector", "A+",0,0,0
 			Property: "Rotation", "Vector", "A+",0,0,0
@@ -293,9 +281,9 @@ Objects:  {
 			Property: "TextureScalingPivot", "Vector3D", "",0,0,0
 			Property: "VideoProperty", "object", ""
 		}
-		Media: "Video::CanTest_png"
-		FileName: "CanTest.png"
-		RelativeFilename: "C:\Users\Moritz\Documents\GitHub\SpazzOut\Assets\Texture\CanTest.png"
+		Media: "Video::CubeUV_png"
+		FileName: "CubeUV.png"
+		RelativeFilename: "C:\Users\Moritz\Documents\GitHub\SpazzOut\Assets\Texture\CubeUV.png"
 		ModelUVTranslation: 0,0
 		ModelUVScaling: 1,1
 		Texture_Alpha_Source: "None"
@@ -308,7 +296,7 @@ Objects:  {
 		}
 		NbPoseNodes: 1
 		PoseNode:  {
-			Node: "Model::Sphere"
+			Node: "Model::Cube"
 			Matrix: 0.000000075497901,0.000000000000000,-1.000000000000000,0.000000000000000,-1.000000000000000,0.000000000000000,-0.000000075497901,0.000000000000000,0.000000000000000,1.000000000000000,0.000000000000000,0.000000000000000,0.000000000000000,0.000000000000000,0.000000000000000,1.000000000000000
 		}
 	}
@@ -330,7 +318,7 @@ Objects:  {
 ;------------------------------------------------------------------
 
 Relations:  {
-	Model: "Model::Sphere", "Mesh" {
+	Model: "Model::Cube", "Mesh" {
 	}
 	Model: "Model::Producer Perspective", "Camera" {
 	}
@@ -348,11 +336,11 @@ Relations:  {
 	}
 	Model: "Model::Camera Switcher", "CameraSwitcher" {
 	}
-	Material: "Material::None__CanTest_png", "" {
+	Material: "Material::Material__CubeUV_png", "" {
 	}
-	Texture: "Texture::CanTest_png", "TextureVideoClip" {
+	Texture: "Texture::CubeUV_png", "TextureVideoClip" {
 	}
-	Video: "Video::CanTest_png", "Clip" {
+	Video: "Video::CubeUV_png", "Clip" {
 	}
 }
 
@@ -360,10 +348,10 @@ Relations:  {
 ;------------------------------------------------------------------
 
 Connections:  {
-	Connect: "OO", "Model::Sphere", "Model::Scene"
-	Connect: "OO", "Material::None__CanTest_png", "Model::Sphere"
-	Connect: "OO", "Texture::CanTest_png", "Model::Sphere"
-	Connect: "OO", "Video::CanTest_png", "Texture::CanTest_png"
+	Connect: "OO", "Model::Cube", "Model::Scene"
+	Connect: "OO", "Material::Material__CubeUV_png", "Model::Cube"
+	Connect: "OO", "Texture::CubeUV_png", "Model::Cube"
+	Connect: "OO", "Video::CubeUV_png", "Texture::CubeUV_png"
 }
 ;Takes and animation section
 ;----------------------------------------------------

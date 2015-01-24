@@ -3,6 +3,8 @@ using System.Collections;
 
 public class StickyObject : MonoBehaviour 
 {
+	public bool yourHandsOnly = false;
+
 	Transform player;
 	FixedJoint joint;
 
@@ -16,7 +18,15 @@ public class StickyObject : MonoBehaviour
 		if (joint != null) return;
 
 		foreach (var contact in collision.contacts) {
-			if (IsAttachedTo (player, contact.otherCollider.transform)) {
+			if (Utils.IsAttachedTo (player, contact.otherCollider.transform)) {
+
+				// only stick to the hand if flag is set
+				if (yourHandsOnly) {
+					if (contact.otherCollider.name != "LeftForeArm" && contact.otherCollider.name != "RightForeArm") {
+						break;
+					}
+				}
+
 				Debug.Log ("ATTACH JOINT");
 				joint = this.gameObject.AddComponent<FixedJoint> ();
 				joint.anchor = contact.point;
@@ -34,12 +44,5 @@ public class StickyObject : MonoBehaviour
 		joint.connectedBody = null;
 		Object.Destroy (joint);
 		joint = null;
-	}
-
-	bool IsAttachedTo (Transform parent, Transform obj)
-	{
-		if (obj.parent == null) return false;
-		if (obj.parent == parent) return true;
-		return IsAttachedTo (parent, obj.parent);
 	}
 }

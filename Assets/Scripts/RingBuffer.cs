@@ -41,7 +41,8 @@ public class RingBuffer<T>
 		set { items[TranslateIndex (index)] = value; }
 	}
 
-	int TranslateIndex(int index) {
+	int TranslateIndex (int index)
+	{
 		return (start + index) % capacity;
 	}
 

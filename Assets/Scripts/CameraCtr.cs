@@ -31,7 +31,7 @@ public class CameraCtr : MonoBehaviour
 
     void Update ()
     {
-		var currentCameraPos = transform.position;
+		//var currentCameraPos = transform.position;
 		var desiredCameraPos = ComputeDesiredCameraPos ();
 		transform.position = Vector3.Lerp (transform.position, desiredCameraPos, Time.deltaTime * MoveSpeed);
 		transform.LookAt (Player);

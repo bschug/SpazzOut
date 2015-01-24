@@ -46,7 +46,7 @@ public class InputCtrl : MonoBehaviour {
 	ControllerSource[] m_limbSources = new ControllerSource[4];
 	Player[] m_players = new Player[4];
 
-	void Update()
+	void FixedUpdate()
 	{
 		string[] controllers = Input.GetJoystickNames();
 		UpdateConnectedPlayers(controllers);

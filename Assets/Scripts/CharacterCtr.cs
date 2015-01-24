@@ -19,7 +19,7 @@ public class CharacterCtr : MonoBehaviour {
         if (actualHeightOfHead < desiredHeightOfHead)
         {
             var dst = actualHeightOfHead - desiredHeightOfHead;
-            head.AddForce (0, dst * dst * force, 0, ForceMode.Force);
+            head.AddForce (0, dst * dst * force * Physics.gravity.magnitude, 0, ForceMode.Force);
         }
     }
 

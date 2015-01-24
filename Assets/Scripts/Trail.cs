@@ -120,7 +120,6 @@ public class Trail : MonoBehaviour {
 		vertices.RemoveRange(vertices.Count-2, 2);
 		uv.RemoveRange(0, 2);
 		triangles.RemoveRange(0, 6);
-		Debug.Log ((vertices.Count-2) + ", " + (vertices.Count-1));
 		setColors();
 	}
 	

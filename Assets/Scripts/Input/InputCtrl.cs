@@ -2,12 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 
+public interface ITriAxisControllable {
+	void UpdateAxes(Vector3 axes);
+}
+
 public class InputCtrl : MonoBehaviour {
 
 	public delegate void PlayerStateChanged(Player player, Player.PlayerState oldState, Player.PlayerState newState);
 	public event PlayerStateChanged EventPlayerStateChanged;
-	// stub
-	public class Limb{}
 
 	public class ControllerSource
 	{
@@ -37,10 +39,10 @@ public class InputCtrl : MonoBehaviour {
 		public PlayerState	_state;
 		public string 		_controllerName;
 		public int 			_controllerNumber;
-		public Limb			_controlledLimb;
+		public LimbCtr		_controlledLimb;
 	}
 
-	public Limb[] _limbs = new Limb[4];
+	public LimbCtr[] _limbs = new LimbCtr[4];
 	ControllerSource[] m_limbSources = new ControllerSource[4];
 	Player[] m_players = new Player[4];
 
@@ -75,12 +77,13 @@ public class InputCtrl : MonoBehaviour {
 		}
 	}
 
-	void UpdateLimbInput(Limb limb, int controller, ControllerSource.ControllerHalf half)
+	void UpdateLimbInput(LimbCtr limb, int controller, ControllerSource.ControllerHalf half)
 	{
 		string side = (half == ControllerSource.ControllerHalf.Left) ? "L" : "R";
 		float x_vel = Input.GetAxis(side + "_XAxis_" + controller);
 		float y_vel = Input.GetAxis(side + "_YAxis_" + controller);
 		float z_vel = Input.GetAxis("Triggers" + side + "_" + controller);
+		limb.UpdateAxes(new Vector3(x_vel, y_vel, z_vel));
 		//Debug.Log ("Input on controller #"+controller+": "+x_vel+", "+y_vel+", "+z_vel);
 
 	}

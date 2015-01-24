@@ -9,7 +9,6 @@ public class Mine : MonoBehaviour {
 
 	void OnTriggerEnter ()
 	{
-		Debug.Log ("Boom!");
 		Collider[] colliders = Physics.OverlapSphere (transform.position, explosionRadius);
 		foreach (Collider collider in colliders)
 		{

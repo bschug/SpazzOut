@@ -16,6 +16,11 @@ public class LimbGroundCollision : MonoBehaviour {
 			var components = contact.otherCollider.gameObject.GetComponents(typeof(IGroundTouchable));
 			foreach(var component in components)
 				((IGroundTouchable)(component)).TouchesGround = true;
+			var obj = contact.otherCollider.rigidbody;
+			var i = characterCtr.limbs.IndexOf (obj);
+			if (i > 0) {
+				characterCtr.limbOnGround[i] = true;
+			}
 		}
 	}
 
@@ -25,6 +30,12 @@ public class LimbGroundCollision : MonoBehaviour {
 			var components = contact.otherCollider.gameObject.GetComponents(typeof(IGroundTouchable));
 			foreach(var component in components)
 				((IGroundTouchable)(component)).TouchesGround = false;
+			var obj = contact.otherCollider.rigidbody;
+			var i = characterCtr.limbs.IndexOf (obj);
+			if (i > 0) {
+				characterCtr.limbOnGround[i] = false;
+			}
 		}
 	}
+
 }

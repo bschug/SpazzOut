@@ -19,7 +19,7 @@ public class LimbCtr : MonoBehaviour, ITriAxisControllable, IGroundTouchable {
 	{
 		upperLimb.AddRelativeTorque (new Vector3 (axes.y*sensitivity, 0, 0));
 		lowerLimb.AddRelativeTorque (new Vector3 (axes.z*sensitivity, 0, 0));
-		if (axes.z > 0.0f && TouchesGround) {
+		if (axes.z != 0.0f && TouchesGround) {
 			hip.AddForce (Vector3.up * hipForce * Physics.gravity.magnitude);
 			lowerLimb.AddForce (Vector3.down * limbForce * Physics.gravity.magnitude * 0.5f);
 		}

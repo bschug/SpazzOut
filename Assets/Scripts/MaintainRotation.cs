@@ -3,11 +3,11 @@ using System.Collections;
 
 public class MaintainRotation : MonoBehaviour {
 
-	Quaternion originalRotation;
+	//Quaternion originalRotation;
 
 	// Use this for initialization
 	void Start () {
-		originalRotation = transform.rotation;
+		//originalRotation = transform.rotation;
 	}
 	
 	// Update is called once per frame

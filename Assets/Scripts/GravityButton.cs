@@ -23,6 +23,11 @@ public class GravityButton : MonoBehaviour {
 					Physics.gravity = new Vector3 (0, gravityStrength, 0);
 					foreach (var obj in GameObject.FindObjectsOfType<Rigidbody> ()) {
 						obj.AddForce (Random.insideUnitSphere, ForceMode.Impulse);
+
+						// un-freeze player body rotation
+						if (obj.name == "Spine1" || obj.name == "Hips") {
+							obj.constraints = new RigidbodyConstraints ();
+						}
 					}
 					Debug.Log ("MY FINGER IS ON THE BUTTON");
 					isPressed = true;

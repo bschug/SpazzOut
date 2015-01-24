@@ -17,7 +17,7 @@ public class CharacterCtr : MonoBehaviour {
 	public List<bool> limbOnGround = new List<bool> ();
     public float limbSensitivity = 45;
 
-    Vector3 lastMousePos;
+    //Vector3 lastMousePos;
 
     void KeepHeadFloating ()
     {
@@ -32,8 +32,8 @@ public class CharacterCtr : MonoBehaviour {
 
     void ReadInputs ()
     {
-        var mouseDelta = lastMousePos - Input.mousePosition;
-        lastMousePos = Input.mousePosition;
+        //var mouseDelta = lastMousePos - Input.mousePosition;
+        //lastMousePos = Input.mousePosition;
 
         var limbUpKeys = new List<KeyCode> { KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.R };
         var limbDownKeys = new List<KeyCode> { KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.F };
@@ -53,7 +53,7 @@ public class CharacterCtr : MonoBehaviour {
 				limbs[i].AddRelativeTorque (new Vector3 (-limbSensitivity, 0, 0));
 				if (feet.Contains(limbs[i]) && limbOnGround[i]) {
 					hip.AddForce (Vector3.up * hipForce * Physics.gravity.magnitude);
-					limbs[i].AddForce (Vector3.down * hipForce * Physics.gravity.magnitude * 0.5f);
+					limbs[i].AddForce (Vector3.down * limbForce * Physics.gravity.magnitude * 0.5f);
 				}
 			}
         }
@@ -61,7 +61,7 @@ public class CharacterCtr : MonoBehaviour {
 
     void Start ()
     {
-        lastMousePos = Input.mousePosition;
+        //lastMousePos = Input.mousePosition;
 		for (int i = 0; i < limbs.Count; i++) {
 			limbOnGround.Add (false);
 		}

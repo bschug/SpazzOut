@@ -9,6 +9,7 @@ public class CharacterCtr : MonoBehaviour {
     public float force = 200;
 
     public List<Rigidbody> limbs = new List<Rigidbody> ();
+	public List<LimbCtr> limbControls = new List<LimbCtr>();
     public float limbSensitivity = 45;
 
     Vector3 lastMousePos;

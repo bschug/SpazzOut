@@ -67,7 +67,7 @@ public class CharacterCtr : MonoBehaviour {
 		}
     }
 
-	void Update ()
+	void FixedUpdate ()
     {
         ReadInputs ();
         KeepHeadFloating ();

@@ -58,7 +58,7 @@ public class InputCtrl : MonoBehaviour {
 		{
 			if( m_players[plIdx]._state == Player.PlayerState.Pending)
 			{
-				if(Input.GetKeyDown("Start_"+m_players[plIdx]._controllerNumber))
+				if(Input.GetButtonDown("Start_"+(m_players[plIdx]._controllerNumber)))
 				{
 					JoinPlayer(plIdx);
 				}
@@ -81,7 +81,7 @@ public class InputCtrl : MonoBehaviour {
 		float x_vel = Input.GetAxis(side + "_XAxis_" + controller);
 		float y_vel = Input.GetAxis(side + "_YAxis_" + controller);
 		float z_vel = Input.GetAxis("Triggers" + side + "_" + controller);
-		Debug.Log ("Input on controller #"+controller+": "+x_vel+", "+y_vel+", "+z_vel);
+		//Debug.Log ("Input on controller #"+controller+": "+x_vel+", "+y_vel+", "+z_vel);
 
 	}
 
@@ -93,7 +93,7 @@ public class InputCtrl : MonoBehaviour {
 			if(m_players[plIdx]._state!= Player.PlayerState.NotConnected)
 			{
 				int ctrIdx = m_players[plIdx]._controllerNumber;
-				if(controllers.Length>ctrIdx && m_players[plIdx]._controllerNumber == ctrIdx)
+				if(controllers.Length>(ctrIdx-1) && m_players[plIdx]._controllerName == controllers[ctrIdx-1])
 					continue;
 				else
 				{
@@ -108,12 +108,17 @@ public class InputCtrl : MonoBehaviour {
 		{
 			if(!string.IsNullOrEmpty(controllers[ctrIdx]))
 			{
+				bool registered = false;
 				for(int plIdx = 0; plIdx < m_players.Length; ++plIdx)
 				{
-					if(m_players[plIdx]._controllerNumber == ctrIdx)
+					if(m_players[plIdx]._controllerNumber == ctrIdx+1)
+					{
+						registered = true;
 						continue; // already signed up
+					}
 				}
-				AddAvailablePlayer(ctrIdx, controllers[ctrIdx]);
+				if(!registered)
+					AddAvailablePlayer(ctrIdx+1, controllers[ctrIdx]);
 			}
 		}
 	}

@@ -3,8 +3,13 @@ using System.Collections;
 
 public class StickyObject : MonoBehaviour 
 {
-	public Transform player;
+	Transform player;
 	FixedJoint joint;
+
+	void Start ()
+	{
+		player = GameObject.FindObjectOfType<CharacterCtr>().transform;
+	}
 
 	void OnCollisionEnter (Collision collision)
 	{

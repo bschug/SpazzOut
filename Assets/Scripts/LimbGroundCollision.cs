@@ -10,6 +10,11 @@ public class LimbGroundCollision : MonoBehaviour {
 
 	public CharacterCtr characterCtr;
 
+	void Start()
+	{
+		characterCtr = GameObject.FindObjectOfType<CharacterCtr>();
+	}
+
 	void OnCollisionEnter (Collision collision)
 	{
 		foreach (var contact in collision.contacts) {

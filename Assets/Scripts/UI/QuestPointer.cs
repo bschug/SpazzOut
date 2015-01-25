@@ -13,6 +13,6 @@ public class QuestPointer : MonoBehaviour {
 		transform.position = pos;
 
 		transform.LookAt (questTarget);
-		transform.Rotate (Vector3.up, Mathf.PI * 0.5f);
+		//transform.Rotate (Vector3.up, Mathf.PI * 0.5f);
 	}
 }

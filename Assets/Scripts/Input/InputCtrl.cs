@@ -61,6 +61,8 @@ public class InputCtrl : MonoBehaviour {
 		UpdatePlayerInput();
 	}
 
+	public Animator [] _PlayerJoined = new Animator[4];
+
 	void UpdatePlayerInput()
 	{
 		// Update pending player input
@@ -71,6 +73,7 @@ public class InputCtrl : MonoBehaviour {
 				if(Input.GetButtonDown("Start_"+(m_players[plIdx]._controllerNumber)))
 				{
 					JoinPlayer(plIdx);
+					_PlayerJoined[plIdx].Play("");
 				}
 			}
 		}

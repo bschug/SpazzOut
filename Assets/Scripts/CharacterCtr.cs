@@ -60,12 +60,34 @@ public class CharacterCtr : MonoBehaviour {
     }
 
     void Start ()
-    {
+	{
+		oldPosition = hip.transform.position;
         //lastMousePos = Input.mousePosition;
 		for (int i = 0; i < limbs.Count; i++) {
 			limbOnGround.Add (false);
 		}
     }
+
+	float passedTime = 0.0f;
+	Vector3 oldPosition;
+	float distance = 0.0f;
+
+	public float Distance
+	{
+		get{return distance;}
+	}
+
+	public float PassedTime
+	{
+		get{ return passedTime;}
+	}
+
+	void Update()
+	{
+		distance += Vector3.Distance(oldPosition, hip.transform.position);
+		oldPosition = hip.transform.position;
+		passedTime += Time.deltaTime;
+	}
 
 	void FixedUpdate ()
     {

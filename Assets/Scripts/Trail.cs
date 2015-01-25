@@ -48,7 +48,6 @@ public class Trail : MonoBehaviour {
 		//test
 		setColors();
 		createSegment ();
-		setActive (true);
 	}
 	
 	// Update is called once per frame
@@ -63,6 +62,10 @@ public class Trail : MonoBehaviour {
 			}
 			//else pull segment
 			else pull ();
+		}
+		else if (parent.rigidbody.velocity.magnitude > 1)
+		{
+			setActive (true);
 		}
 	}
 	

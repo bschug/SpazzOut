@@ -45,8 +45,10 @@ public class SceneLoader : MonoBehaviour
 			nextStartPos += root.length;
 		}
 
-		var bigRedButton = GameObject.FindObjectOfType<GravityButton> ();
+
+		// Quest Marker
+		/*var bigRedButton = GameObject.FindObjectOfType<GravityButton> ();
 		var questMarker = GameObject.FindObjectOfType<QuestPointer> ();
-		questMarker.questTarget = bigRedButton.transform;
+		questMarker.questTarget = bigRedButton.transform;*/
 	}
 }

@@ -174,6 +174,8 @@ public class InputCtrl : MonoBehaviour {
 			EventPlayerStateChanged(m_players[index], oldState, m_players[index]._state);
 	}
 
+	delegate void ApplyPlayerToLimbDelegate(int limbIndex, int playerIndex, ControllerSource.ControllerHalf half);
+
 	void OnPlayersChanged()
 	{
 		List<int> activePlayerIndexes = new List<int>();
@@ -185,6 +187,13 @@ public class InputCtrl : MonoBehaviour {
 				activePlayerIndexes.Add (plIdx);
 			}
 		}
+
+		ApplyPlayerToLimbDelegate ApplyPlayerToLimb = (int limbIndex, int playerIndex, ControllerSource.ControllerHalf half) =>
+		{
+			m_limbSources[limbIndex] = new ControllerSource(m_players[activePlayerIndexes[playerIndex]], half);
+			_limbs[limbIndex].ControllingPlayerIndex = playerIndex;
+		};
+
 		switch(activePlayerIndexes.Count)
 		{
 		case 0:
@@ -194,28 +203,28 @@ public class InputCtrl : MonoBehaviour {
 			m_limbSources[3] = null;
 			break;
 		case 1:
-			m_limbSources[0] = new ControllerSource(m_players[activePlayerIndexes[0]], ControllerSource.ControllerHalf.Left);
-			m_limbSources[1] = new ControllerSource(m_players[activePlayerIndexes[0]], ControllerSource.ControllerHalf.Right);
+			ApplyPlayerToLimb(0, 0, ControllerSource.ControllerHalf.Left);
+			ApplyPlayerToLimb(1, 0, ControllerSource.ControllerHalf.Right);
 			m_limbSources[2] = null;
 			m_limbSources[3] = null;
 			break;
 		case 2:
-			m_limbSources[0] = new ControllerSource(m_players[activePlayerIndexes[0]], ControllerSource.ControllerHalf.Left);
-			m_limbSources[1] = new ControllerSource(m_players[activePlayerIndexes[0]], ControllerSource.ControllerHalf.Right);
-			m_limbSources[2] = new ControllerSource(m_players[activePlayerIndexes[1]], ControllerSource.ControllerHalf.Left);
-			m_limbSources[3] = new ControllerSource(m_players[activePlayerIndexes[1]], ControllerSource.ControllerHalf.Right);
+			ApplyPlayerToLimb(0, 0, ControllerSource.ControllerHalf.Left);
+			ApplyPlayerToLimb(1, 0, ControllerSource.ControllerHalf.Right);
+			ApplyPlayerToLimb(2, 1, ControllerSource.ControllerHalf.Left);
+			ApplyPlayerToLimb(3, 1, ControllerSource.ControllerHalf.Right);
 			break;
 		case 3:
-			m_limbSources[0] = new ControllerSource(m_players[activePlayerIndexes[0]], ControllerSource.ControllerHalf.Left);
-			m_limbSources[1] = new ControllerSource(m_players[activePlayerIndexes[1]], ControllerSource.ControllerHalf.Left);
-			m_limbSources[2] = new ControllerSource(m_players[activePlayerIndexes[2]], ControllerSource.ControllerHalf.Left);
-			m_limbSources[3] = new ControllerSource(m_players[activePlayerIndexes[2]], ControllerSource.ControllerHalf.Right);
+			ApplyPlayerToLimb(0, 0, ControllerSource.ControllerHalf.Left);
+			ApplyPlayerToLimb(1, 1, ControllerSource.ControllerHalf.Left);
+			ApplyPlayerToLimb(2, 2, ControllerSource.ControllerHalf.Left);
+			ApplyPlayerToLimb(3, 2, ControllerSource.ControllerHalf.Right);
 			break;
 		case 4:
-			m_limbSources[0] = new ControllerSource(m_players[activePlayerIndexes[0]], ControllerSource.ControllerHalf.Left);
-			m_limbSources[1] = new ControllerSource(m_players[activePlayerIndexes[1]], ControllerSource.ControllerHalf.Left);
-			m_limbSources[2] = new ControllerSource(m_players[activePlayerIndexes[2]], ControllerSource.ControllerHalf.Left);
-			m_limbSources[3] = new ControllerSource(m_players[activePlayerIndexes[3]], ControllerSource.ControllerHalf.Left);
+			ApplyPlayerToLimb(0, 0, ControllerSource.ControllerHalf.Left);
+			ApplyPlayerToLimb(1, 1, ControllerSource.ControllerHalf.Left);
+			ApplyPlayerToLimb(2, 2, ControllerSource.ControllerHalf.Left);
+			ApplyPlayerToLimb(3, 3, ControllerSource.ControllerHalf.Left);
 			break;
 		}
 	}

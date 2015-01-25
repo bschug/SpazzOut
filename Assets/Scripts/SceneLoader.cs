@@ -29,11 +29,24 @@ public class SceneLoader : MonoBehaviour
 				yield return new WaitForEndOfFrame ();
 			}
 
-			var rootObj = GameObject.Find (scene);
-			var root = rootObj.GetComponent<SceneRoot> ();
+			SceneRoot root = null;
+			foreach (var sceneRoot in GameObject.FindObjectsOfType<SceneRoot>()) {
+				if (sceneRoot.name == scene) {
+					root = sceneRoot;
+					break;
+				}
+			}
 
-			rootObj.transform.Translate (0, 0, nextStartPos);
+			if (root == null) {
+				Debug.LogError ("Scene '" + scene + "' has no SceneRoot script on its root object!");
+			}
+
+			root.transform.Translate (0, 0, nextStartPos);
 			nextStartPos += root.length;
 		}
+
+		var bigRedButton = GameObject.FindObjectOfType<GravityButton> ();
+		var questMarker = GameObject.FindObjectOfType<QuestPointer> ();
+		questMarker.questTarget = bigRedButton.transform;
 	}
 }

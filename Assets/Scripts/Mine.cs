@@ -6,6 +6,9 @@ public class Mine : MonoBehaviour {
 	public float explosionRadius;
 	public float explosionForce;
 
+	// objects need to go at least this fast to trigger the explosion
+	public float necessaryVelocity;
+
 	Transform player;
 
 	void Start ()
@@ -16,7 +19,7 @@ public class Mine : MonoBehaviour {
 	void OnCollisionEnter (Collision collision)
 	{
 		foreach (var contact in collision.contacts) {
-			if (Utils.IsAttachedTo (player, contact.otherCollider.transform)) {
+			if (Utils.IsAttachedTo (player, contact.otherCollider.transform) || collision.relativeVelocity.magnitude > necessaryVelocity) {
 				Explode ();
 				break;
 			}

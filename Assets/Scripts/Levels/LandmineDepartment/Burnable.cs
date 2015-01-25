@@ -11,14 +11,20 @@ public class Burnable : MonoBehaviour {
 
 	public void SetOnFire (float duration)
 	{
-		stopBurnTime = Time.time + duration;
+		if (DestroyWhenBurntOut) {
+			stopBurnTime = Time.time + 3;
+		}
+		else {
+			stopBurnTime = Time.time + duration;
+		}
+
 		if (coroutine != null) {
 			StopCoroutine (coroutine);
 		}
 		coroutine = Co_StopBurningAfter (duration);
 		StartCoroutine (coroutine);
-		fireParticleSystem.Play();
 
+		fireParticleSystem.Play();
 		Debug.Log (name + " is on fire now");
 	}
 

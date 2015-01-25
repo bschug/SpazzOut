@@ -17,6 +17,8 @@ public class CharacterCtr : MonoBehaviour {
 	public List<bool> limbOnGround = new List<bool> ();
     public float limbSensitivity = 45;
 
+	public float cheatForce = 10;
+
     //Vector3 lastMousePos;
 
     void KeepHeadFloating ()
@@ -57,6 +59,20 @@ public class CharacterCtr : MonoBehaviour {
 				}
 			}
         }
+
+
+		if (Input.GetKey (KeyCode.UpArrow)) {
+			hip.AddRelativeForce (Vector3.forward * cheatForce);
+		}
+		if (Input.GetKey (KeyCode.DownArrow)) {
+			hip.AddRelativeForce (Vector3.back * cheatForce);
+		}
+		if (Input.GetKey (KeyCode.LeftArrow)) {
+			hip.AddRelativeTorque (Vector3.up * cheatForce);
+		}
+		if (Input.GetKey (KeyCode.RightArrow)) {
+			hip.AddRelativeTorque (Vector3.down * cheatForce);
+		}
     }
 
     void Start ()

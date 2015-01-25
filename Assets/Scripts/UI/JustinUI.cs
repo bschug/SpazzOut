@@ -7,6 +7,7 @@ public class JustinUI : MonoBehaviour {
 	public CharacterCtr _insertJustinHere;
 	public Text			_timeText;
 	public Text			_distanceText;
+	public Text			_damageText;
 
 	// Update is called once per frame
 	void Update () {
@@ -17,5 +18,7 @@ public class JustinUI : MonoBehaviour {
 		passedTime-=seconds;
 		int minutes = Mathf.FloorToInt(passedTime/60.0f);
 		_timeText.text = minutes.ToString("D2")+":"+seconds.ToString("D2")+"."+millisecs;
+
+		_damageText.text = "$" + DamageCounter.TotalDamage.ToString ();
 	}
 }

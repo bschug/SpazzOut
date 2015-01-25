@@ -36,6 +36,7 @@ public class InputCtrl : MonoBehaviour {
 			Pending,
 			Active
 		}
+		public int			_currentIndex;
 		public PlayerState	_state;
 		public string 		_controllerName;
 		public int 			_controllerNumber;
@@ -46,9 +47,16 @@ public class InputCtrl : MonoBehaviour {
 	ControllerSource[] m_limbSources = new ControllerSource[4];
 	Player[] m_players = new Player[4];
 
+	public Player[] Players
+	{
+		get{
+			return m_players;
+		}
+	}
+
 	void FixedUpdate()
 	{
-		string[] controllers = Input.GetJoystickNames();
+		var controllers = Input.GetJoystickNames();
 		UpdateConnectedPlayers(controllers);
 		UpdatePlayerInput();
 	}
@@ -64,7 +72,6 @@ public class InputCtrl : MonoBehaviour {
 				{
 					JoinPlayer(plIdx);
 				}
-				break;
 			}
 		}
 
@@ -96,7 +103,7 @@ public class InputCtrl : MonoBehaviour {
 			if(m_players[plIdx]._state!= Player.PlayerState.NotConnected)
 			{
 				int ctrIdx = m_players[plIdx]._controllerNumber;
-				if(controllers.Length>(ctrIdx-1) && m_players[plIdx]._controllerName == controllers[ctrIdx-1])
+				if(controllers.Length>(Mathf.Max(ctrIdx-1,0)) && m_players[plIdx]._controllerName == controllers[ctrIdx-1])
 					continue;
 				else
 				{
@@ -170,7 +177,10 @@ public class InputCtrl : MonoBehaviour {
 		for(int plIdx = 0; plIdx < m_players.Length; ++plIdx)
 		{
 			if(m_players[plIdx]._state == Player.PlayerState.Active)
+			{
+				m_players[plIdx]._currentIndex = activePlayerIndexes.Count;
 				activePlayerIndexes.Add (plIdx);
+			}
 		}
 		switch(activePlayerIndexes.Count)
 		{

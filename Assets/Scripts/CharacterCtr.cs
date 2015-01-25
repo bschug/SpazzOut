@@ -73,6 +73,9 @@ public class CharacterCtr : MonoBehaviour {
 		if (Input.GetKey (KeyCode.RightArrow)) {
 			hip.AddRelativeTorque (Vector3.down * cheatForce);
 		}
+		if (Input.GetKey (KeyCode.Space)) {
+			hip.AddForce (Vector3.up * cheatForce, ForceMode.Force);
+		}
     }
 
     void Start ()

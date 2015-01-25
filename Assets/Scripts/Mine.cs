@@ -6,6 +6,8 @@ public class Mine : MonoBehaviour {
 	public float explosionRadius;
 	public float explosionForce;
 
+	public GameObject boomPrefab;
+
 	// objects need to go at least this fast to trigger the explosion
 	public float necessaryVelocity;
 
@@ -28,6 +30,7 @@ public class Mine : MonoBehaviour {
 
 	void Explode() 
 	{
+		Instantiate (boomPrefab, transform.position, Quaternion.identity);
 		Collider[] colliders = Physics.OverlapSphere (transform.position, explosionRadius);
 		foreach (Collider collider in colliders)
 		{

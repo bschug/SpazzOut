@@ -30,7 +30,7 @@ public class StickyObject : MonoBehaviour
 				Debug.Log ("ATTACH JOINT");
 				joint = this.gameObject.AddComponent<FixedJoint> ();
 				joint.anchor = contact.point;
-				joint.breakForce = 3.5f;
+				joint.breakForce = (yourHandsOnly ? 3.5f : 4.5f);
 				joint.breakTorque = 10;
 				joint.connectedBody = contact.otherCollider.rigidbody;
 				break;

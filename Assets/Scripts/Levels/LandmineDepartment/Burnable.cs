@@ -12,11 +12,10 @@ public class Burnable : MonoBehaviour {
 	public void SetOnFire (float duration)
 	{
 		if (DestroyWhenBurntOut) {
-			stopBurnTime = Time.time + 3;
+			duration = 3;
 		}
-		else {
-			stopBurnTime = Time.time + duration;
-		}
+
+		stopBurnTime = Time.time + duration;
 
 		if (coroutine != null) {
 			StopCoroutine (coroutine);

@@ -9,15 +9,17 @@ public class SceneLoader : MonoBehaviour
 {
 	public List<string> scenes = new List<string>();
 
+	int numLevelsLoaded = 0;
+	float nextStartPos = 0;
+
 	void Start ()
 	{
-		StartCoroutine (Co_LoadScenes());
+		//StartCoroutine (Co_LoadScenes());
+		LoadNextScene();
 	}
 
 	IEnumerator Co_LoadScenes ()
 	{
-		float nextStartPos = 0;
-
 		foreach (var scene in scenes) {
 			var op = Application.LoadLevelAdditiveAsync (scene);
 			if (op == null) {
@@ -50,5 +52,24 @@ public class SceneLoader : MonoBehaviour
 		/*var bigRedButton = GameObject.FindObjectOfType<GravityButton> ();
 		var questMarker = GameObject.FindObjectOfType<QuestPointer> ();
 		questMarker.questTarget = bigRedButton.transform;*/
+	}
+
+	public void AlignLevel(SceneRoot root) {
+		Debug.Log ("Aligning Level " + root.name);
+		root.transform.Translate (0, 0, nextStartPos);
+		nextStartPos += root.length;
+	}
+
+	public void LoadNextScene()
+	{
+		if (numLevelsLoaded >= scenes.Count) {
+			Debug.Log ("All Levels Loaded");
+			return;
+		}
+
+		var scene = scenes[numLevelsLoaded];
+		numLevelsLoaded++;
+		Debug.Log ("Loading level " + scene);
+		Application.LoadLevelAdditive(scene);
 	}
 }

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class JustinUI : MonoBehaviour {
 
-	public CharacterCtr _insertJustinHere;
+	public DistanceCounter _insertJustinHere;
 	public Text			_timeText;
 	public Text			_distanceText;
 	public Text			_damageText;

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Burnable : MonoBehaviour {
@@ -60,7 +60,7 @@ public class Burnable : MonoBehaviour {
 	void OnCollisionEnter (Collision collision)
 	{
 		foreach (var contact in collision.contacts) {
-			var burnable = Utils.FindInHierarchy<Burnable>(contact.otherCollider.transform);
+			var burnable = Utils.FindInParents<Burnable>(contact.otherCollider.transform);
 			if (burnable != null) {
 				if (!this.IsOnFire && burnable.IsOnFire) {
 					SetOnFire(burnable.RemainingBurnTime);

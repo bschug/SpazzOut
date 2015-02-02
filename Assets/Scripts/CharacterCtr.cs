@@ -7,16 +7,14 @@ public class CharacterCtr : MonoBehaviour {
 	public GameObject ragdoll;
 	public GameObject animated;
 
+	public float Spring = 10f;
+	public float Damper = 0.2f;
+	public float MaxDistance = 0.5f;
+	string OldValues = "";
+
 	public float walkSpeed = 0.25f;
 	public float moveSpeed = 0.5f;
 	public float turnSpeed = 25f;
-	public float spatialFidelity = 100f;
-	public float torqueFidelity = 100f;
-
-	public float hipHeight = 0.8f;
-	public float hipForce = 10f;
-	public float hipForceExponent = 2f;
-	public float hipTorque = 10f;
 
 	public bool showAnimation = false;
 	bool animationVisible = true;
@@ -103,6 +101,24 @@ public class CharacterCtr : MonoBehaviour {
 		return limb;
 	}
 
+	void AdjustSprings()
+	{
+		AdjustSpring(hips.ragdoll);
+		foreach (var limb in allLimbs) {
+			AdjustSpring(limb.ragdoll);
+		}
+	}
+
+	void AdjustSpring(Rigidbody obj) 
+	{
+		foreach (var joint in obj.GetComponents(typeof(SpringJoint))) {
+			var spring = (SpringJoint)joint;
+			spring.spring = Spring;
+			spring.damper = Damper;
+			spring.maxDistance = MaxDistance;
+		}
+	}
+
     void ReadInputs ()
     {
 		bool isMoving = false;
@@ -149,6 +165,12 @@ public class CharacterCtr : MonoBehaviour {
 			animationVisible = showAnimation;
 		}
 
+		var valuesHash = "" + Spring + "" + Damper + "" + MaxDistance;
+		if (valuesHash != OldValues) {
+			AdjustSprings();
+			OldValues = valuesHash;
+		}
+
 		ReadInputs ();
 	}
 
@@ -164,20 +186,6 @@ public class CharacterCtr : MonoBehaviour {
 		var pos = animated.transform.position;
 		pos.y = raycast.point.y;
 		animated.transform.position = pos;
-
-		hips.ragdoll.transform.position = hips.animated.transform.position;
-		hips.ragdoll.transform.rotation = hips.animated.transform.rotation;
-
-//		if (raycast.distance < hipHeight) {
-//			var delta = hipHeight - raycast.distance;
-//			var strength = 1 / Mathf.Pow (delta / hipHeight, hipForceExponent) * hipForce;
-//			hips.ragdoll.AddForce(0, strength, 0);
-//		}
-		//hips.ragdoll.AddTorque(hips.WorldRotationDelta * Time.deltaTime * hipTorque);
-
-        foreach (var limb in allLimbs) {
-			limb.ragdoll.AddRelativeTorque(limb.LocalRotationDelta * Time.deltaTime * torqueFidelity);
-		}
 	}
 
 	void OnDrawGizmos()

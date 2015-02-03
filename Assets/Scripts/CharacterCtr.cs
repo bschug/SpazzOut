@@ -10,6 +10,7 @@ public class CharacterCtr : MonoBehaviour {
 	public float Spring = 10f;
 	public float Damper = 0.2f;
 	public float MaxDistance = 0.5f;
+	public float BreakForce = 100f;
 	string OldValues = "";
 
 	public float walkSpeed = 0.25f;
@@ -24,9 +25,43 @@ public class CharacterCtr : MonoBehaviour {
 	[HideInInspector]
 	public List<bool> limbOnGround = new List<bool> ();
 
+	class Rubberband {
+		public GameObject RagdollLimb;
+		public Vector3 Anchor;
+		public Rigidbody ConnectedBody;
+
+		public Rubberband(GameObject ragdollLimb, Vector3 anchor, Rigidbody connectedBody) {
+			RagdollLimb = ragdollLimb;
+			Anchor = anchor;
+			ConnectedBody = connectedBody;
+		}
+
+		public SpringJoint FindJoint() {
+			foreach (var joint in RagdollLimb.GetComponents<SpringJoint>()) {
+				if (joint.connectedBody == ConnectedBody && 
+				    Vector3.Distance(joint.anchor, Anchor) < Vector3.kEpsilon) 
+				{
+					return joint;
+				}
+			}
+			return null;
+		}
+
+		public SpringJoint Restore() {
+			var joint = FindJoint();
+			if (joint == null) {
+				joint = RagdollLimb.AddComponent<SpringJoint>();
+				joint.anchor = Anchor;
+				joint.connectedBody = ConnectedBody;
+			}
+			return joint;
+		}
+	}
+
 	class Limb {
 		public Rigidbody ragdoll;
 		public Transform animated;
+		public List<Rubberband> rubberbands;
 
 		public Transform ragdollRoot;
 		public Transform animatedRoot;
@@ -67,11 +102,13 @@ public class CharacterCtr : MonoBehaviour {
 	Limb spine, head, hips;
 
 	List<Limb> allLimbs;
-
+	List<Rubberband> allRubberbands;
 
 
 	void InitLimbs()
 	{
+		allRubberbands = new List<Rubberband>();
+
 		leftLeg = FindLimb("LeftUpLeg");
 		rightLeg = FindLimb("RightUpLeg");
 		leftFoot = FindLimb("LeftLeg");
@@ -84,7 +121,7 @@ public class CharacterCtr : MonoBehaviour {
 		head = FindLimb("Head");
 		hips = FindLimb("Hips");
 
-		allLimbs = new List<Limb> { leftLeg, leftFoot, rightLeg, rightFoot, leftArm, leftHand, rightArm, rightHand, spine, head };
+		allLimbs = new List<Limb> { leftLeg, leftFoot, rightLeg, rightFoot, leftArm, leftHand, rightArm, rightHand, spine, head, hips };
 
 		feet = new List<Rigidbody> { leftFoot.ragdoll, rightFoot.ragdoll };
 		limbOnGround = new List<bool> { false, false };
@@ -98,12 +135,18 @@ public class CharacterCtr : MonoBehaviour {
 		limb.animated = Utils.FindChild(name, animated.transform);
 		limb.ragdollRoot = ragdoll.transform;
 		limb.animatedRoot = animated.transform;
+		limb.rubberbands = new List<Rubberband>();
+		foreach (var joint in limb.ragdoll.GetComponents<SpringJoint>()) {
+			var rubberband = new Rubberband(limb.ragdoll.gameObject, joint.anchor, joint.connectedBody);
+			limb.rubberbands.Add (rubberband);
+			allRubberbands.Add (rubberband);
+		}
+		limb.ragdoll.gameObject.AddComponent<CharacterLimb>();
 		return limb;
 	}
 
 	void AdjustSprings()
 	{
-		AdjustSpring(hips.ragdoll);
 		foreach (var limb in allLimbs) {
 			AdjustSpring(limb.ragdoll);
 		}
@@ -116,6 +159,7 @@ public class CharacterCtr : MonoBehaviour {
 			spring.spring = Spring;
 			spring.damper = Damper;
 			spring.maxDistance = MaxDistance;
+			spring.breakForce = BreakForce;
 		}
 	}
 
@@ -165,7 +209,7 @@ public class CharacterCtr : MonoBehaviour {
 			animationVisible = showAnimation;
 		}
 
-		var valuesHash = "" + Spring + "" + Damper + "" + MaxDistance;
+		var valuesHash = "" + Spring + "" + Damper + "" + MaxDistance + "" + BreakForce;
 		if (valuesHash != OldValues) {
 			AdjustSprings();
 			OldValues = valuesHash;
@@ -176,16 +220,54 @@ public class CharacterCtr : MonoBehaviour {
 
 	void FixedUpdate ()
     {
+		AdjustHeight();
+	}
+
+	void AdjustHeight() 
+	{
 		RaycastHit raycast;
 		int layerMask = ~LayerMask.GetMask("Player");
 		if (!Physics.Raycast(hips.ragdoll.position, Vector3.down, out raycast, 100, layerMask)) {
 			Debug.Log ("Oh no! Where is the ground?");
 			return;
 		}
-
+		
 		var pos = animated.transform.position;
 		pos.y = raycast.point.y;
 		animated.transform.position = pos;
+	}
+
+	void DestroyRubberbands()
+	{
+		Debug.Log("Enter Ragdoll Mode");
+		foreach (var limb in allLimbs) {
+			foreach (var joint in limb.ragdoll.GetComponents<SpringJoint>()) {
+				Object.Destroy (joint);
+			}
+		}
+	}
+
+	void RestoreRubberbands()
+	{
+		Debug.Log("Restoring Rubberbands");
+		animated.transform.position = hips.ragdoll.position;
+		AdjustHeight();
+
+		foreach (var rubberband in allRubberbands) {
+			rubberband.Restore();
+		}
+	}
+
+	public void HandleJointBreak(CharacterLimb limb) 
+	{
+		StartCoroutine(Co_RagdollMode());
+	}
+
+	IEnumerator Co_RagdollMode()
+	{
+		DestroyRubberbands();
+		yield return new WaitForSeconds(3);
+		RestoreRubberbands();
 	}
 
 	void OnDrawGizmos()

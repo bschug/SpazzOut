@@ -37,3 +37,4 @@ You can see the original GameJam entry here: http://globalgamejam.org/2015/games
 - Crazy Weapon Pack: https://www.assetstore.unity3d.com/en/#!/content/15090
 - Male Character Pack: http://u3d.as/content/mixamo/male-character-pack/1sQ
 - Move Motion Pack: https://www.assetstore.unity3d.com/en/#!/content/25900
+- Bush 3D Model: http://archive3d.net/?a=download&id=b71154b5
